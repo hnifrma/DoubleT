@@ -9,8 +9,11 @@ created by [hansburnthem](https://www.instagram.com/hnifrma/). :D
 2. Don't forget to install node.js(npm) and git.
 3. Extract the repo
 4. Open terminal and open the repo directory
-5. type this command
+5. run this command
+### `npm install && npm run client-install`
+This will install all dependencies, be aware to run this command in root directory
 
+6, after that, run this command
 ### `npm run dev`
 
 this will run the backend server and the frontend server at the same time
@@ -21,7 +24,7 @@ if you want to start the backend and frontend standalone, you can run this comma
 
 ### `nodemon server.js`
 this will start the backend,
-do this in master directory.
+do this in root directory.
 
 ### `npm start`
 this will start the frontend
