@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import  {
     Collapse,
     Navbar,
@@ -7,27 +7,51 @@ import  {
     Nav,
     //NavItem,
     NavLink,
-    Container
+    Container,
+    NavItem
 } from 'reactstrap';
+import RegisterModal from './auth/RegisterModal';
+import Logout from './auth/Logout';
+import LoginModal from './auth/LoginModal';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class AppNavbar extends React.Component {
-    constructor(props){
-        super(props);
 
-        this.state = {
-            isOpen: false
-        };
+class AppNavbar extends React.Component {
+    state = {
+        isOpen: false
+    };
 
-        this.toggle = this.toggle.bind(this);
+    static propTypes = {
+        auth: PropTypes.object.isRequired
     }
 
-    toggle() {
+    toggle = () => {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
 
     render() {
+        const { isAuthenticated, user } = this.props.auth;
+        const authLinks = (
+            <Fragment>
+                <span className="navbar-text mr-3">
+                    <strong>
+                        {
+                            user ? `Welcome ${user.name}`: ''
+                        }
+                    </strong>
+                </span>
+                <Logout />
+            </Fragment>
+        );
+        const guestLinks = (
+            <Fragment>
+                <RegisterModal />
+                <LoginModal />
+            </Fragment>
+        );
         return(
             <div>
                 <Navbar color="dark" dark expand="sm" className="mb-5">
@@ -38,8 +62,11 @@ export default class AppNavbar extends React.Component {
                         <NavbarToggler onClick={this.toggle}/>
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
-                                <NavLink href="https://github.com/hnifrma">
-                                    Github
+                                {
+                                    isAuthenticated ? authLinks : guestLinks
+                                }
+                                <NavLink href="https://github.com/hnifrma/DoubleT">
+                                        Github Repo
                                 </NavLink>
                             </Nav>
                         </Collapse>
@@ -49,3 +76,12 @@ export default class AppNavbar extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(
+    mapStateToProps,
+    null
+)(AppNavbar);

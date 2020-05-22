@@ -1,15 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
-
+const config = require('config');
 //BodyParser middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
 //db config
 //keys to mongoose URI ada di config
-mongoose.connect(require('./config/keys').mongoURI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
+
+mongoose.connect(config.get('mongoURI'), {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
     .catch(err => console.log("Connection Err"));
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -17,9 +17,10 @@ connection.once('open', () => {
 });
 
 //Route middleware to API
-const items = require('./routes/api/items');
 
-app.use('/api/items',items);
+app.use('/api/items',require('./routes/api/items'));
+app.use('/api/users',require('./routes/api/users'));
+app.use('/api/auth',require('./routes/api/auth'));
 
 // static asset in production
 if(process.env.NODE_ENV === 'production') {
