@@ -1,8 +1,8 @@
 ## Double T
 This project was made using MERN Stack.
-FrontEnd template using Bootstrap.
+Frontend template using Bootstrap.
 
-created by [hansburnthem](https://www.instagram.com/hnifrma/).
+created by [hansburnthem](https://www.instagram.com/hnifrma/). :D
 
 ## How to run in your local-machine
 1. Clone this repo
