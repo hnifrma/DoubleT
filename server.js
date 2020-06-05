@@ -8,14 +8,13 @@ app.use(express.json());
 
 //db config
 //keys to mongoose URI ada di config
-
 mongoose.connect(config.get('mongoURI'), {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
     .catch(err => console.log("Connection Err"));
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 });
-
+// 
 //Route middleware to API
 
 app.use('/api/items',require('./routes/api/items'));
