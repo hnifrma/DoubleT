@@ -1,4 +1,4 @@
-## Double T
+## DoubleT
 This project was made using MERN Stack.
 Frontend template using Bootstrap.
 
